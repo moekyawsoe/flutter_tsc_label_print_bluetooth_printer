@@ -1,4 +1,4 @@
-# label_print_bluetooth_myanmar
+# Print Myanmar Language In TSC mode with Bluetooth Label Printers
 
 Label Mode Print Myanmar Content (TSC).
 
