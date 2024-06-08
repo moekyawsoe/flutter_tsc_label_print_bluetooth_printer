@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:bluetooth_print/bluetooth_print.dart';
 import 'package:bluetooth_print/bluetooth_print_model.dart';
+import 'package:flutter/services.dart';
 
 BluetoothPrint getPrinter() {
   BluetoothPrint bluetoothPrint = BluetoothPrint.instance;
@@ -37,14 +38,15 @@ Future<void> connectDevice(BluetoothDevice? device) async {
   await bluetoothPrint.connect(device!);
 }
 
-List<LineText> parseData(Uint8List generatedData) {
+Future<List<LineText>> parseData(Uint8List generatedData) async {
   List<LineText> list = [];
   ByteData data = ByteData.view(generatedData.buffer);
   List<int> imageBytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   String base64Image = base64Encode(imageBytes);
-  // list.add(LineText(type: LineText.TYPE_TEXT, x:10, y:40, content: 'Continue Print'));
-  list.add(LineText(type: LineText.TYPE_IMAGE, x:20, y:20, content: base64Image,));
+
+  list.add(LineText(type: LineText.TYPE_IMAGE, width: 575, x:0, y:10, content: base64Image,));
+  list.add(LineText(type: LineText.TYPE_BARCODE, content: '123456789', size: 10, x:160, y:20, align: LineText.ALIGN_CENTER, linefeed: 1));
+  // list.add(LineText(type: LineText.TYPE_TEXT, x:10, y:40, content: 'Continue Print Continue Print'));
   // list.add(LineText(type: LineText.TYPE_QRCODE, x:10, y:70, content: 'qrcode i\n'));
-  // list.add(LineText(type: LineText.TYPE_BARCODE, x:10, y:190, content: 'qrcode i\n'));
   return list;
 }

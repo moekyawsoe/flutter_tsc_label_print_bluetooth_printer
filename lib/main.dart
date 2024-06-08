@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var previewWidget = _img != null ? Image.memory(_img, width: 500, fit: BoxFit.contain, height: 300) : Text(_connected ? 'Preview' : '');
+    var previewWidget = _img != null ? Image.memory(_img, width: 575, fit: BoxFit.contain, height: 500) : Text(_connected ? 'Preview' : '');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -171,32 +171,131 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   printBill() async {
+    String printData = """
+    From    :   Shwe Online Shop
+                09253268310, 09123456789
+    ------------------------------------
+    To      :   မောင်မောင်ကျော်ကျော်မြင့် (မဟာမိုဘိုင်း)
+                09253653120, 09464521544
+                အမှတ် (၁၀), ကမ်းနားလမ်း
+                ရန်ကုန်တိုင်းဒေသကြီး
+    -------------------------------------
+    22-Feb-2024   Weight    :           3
+    North Dagon   Subtotal  :     150,000
+                  Delivery  :       3,000
+                  Overweight:       1,000
+       PAID       Grand Total:    190,000
+    -------------------------------------
+    Remark  :
+    
+    
+    
+    """;
     List<TextParam> textParams = [
       TextParam(
-        text: "ဝယ်သူနာမည် : မောင်မောင်",
-        offset: const Offset(0, 10),
-        fontSize: 28,
-        fontWeight: FontWeight.w700,
-        textDirection: TextDirection.rtl,
+        text: "From   :",
+        offset: const Offset(5, 130),
+        fontWeight: FontWeight.w900,
       ),
       TextParam(
-        text: "နေရပ်လိပ်စာ : ပြင်ဦးလွင်",
-        offset: const Offset(0, 80), // Adjust the offset as needed
+        text: "Shwe Online Shop",
+        offset: const Offset(155, 130),
+        fontWeight: FontWeight.w900,
       ),
       TextParam(
-        text: "အရေအတွက် : အလုံး ၅၀",
-        offset: const Offset(0, 120), // Adjust the offset as needed
+        text: "09253268310, 09123456789",
+        offset: const Offset(155, 160),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "",
+        offset: const Offset(0, 190),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "To   :",
+        offset: const Offset(5, 220),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "မောင်မောင်ချစ်ချော (ပြုပြင်ရေးမိုဘိုင်း)",
+        offset: const Offset(155, 210),
+        fontWeight: FontWeight.w600,
+      ),
+      TextParam(
+        text: "09253268310, 09123456789",
+        offset: const Offset(155, 260),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "No 123, ငပိန်လမ်း, စလုံးမြို့နယ်",
+        offset: const Offset(155, 290),
+        fontWeight: FontWeight.w600,
+      ),
+      TextParam(
+        text: "ရန်ကုန်တိုင်း",
+        offset: const Offset(155, 330),
+        fontWeight: FontWeight.w600,
+      ),
+      TextParam(
+        text: "",
+        offset: const Offset(180, 370),
+      ),
+      TextParam(
+        text: "Weight         :",
+        offset: const Offset(180, 400),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: formatPrice(3),
+        offset: const Offset(450, 400),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "Subtotal      :",
+        offset: const Offset(180, 430),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: formatPrice(100000),
+        offset: const Offset(450, 430),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "Delivery       :",
+        offset: const Offset(180, 460),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: formatPrice(300),
+        offset: const Offset(450, 460),
+        fontWeight: FontWeight.w900,
+        textDirection: TextDirection.rtl
+      ),
+      TextParam(
+        text: "Overweight    :",
+        offset: const Offset(180, 490),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: formatPrice(1000),
+        offset: const Offset(450, 490),
+        fontWeight: FontWeight.w900,
       ),
     ];
     Uint8List data = await generateData(textParams);
 
-    List<LineText> buffer = parseData(data);
+    List<LineText> buffer = await parseData(data);
 
     Map<String, dynamic> config = {};
     config['width'] = 72;
     config['height'] = 80;
     config['gap'] = 2;
-    await bluetoothPrint.printLabel(config, buffer);
+    try{
+      await bluetoothPrint.printLabel(config, buffer);
+    }catch(er){
+      print(er);
+    }
 
     //optional preview
     setState(() {
