@@ -240,7 +240,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       TextParam(
         text: "",
-        offset: const Offset(180, 370),
+        offset: const Offset(180, 380),
+      ),
+      TextParam(
+        text: "22-Feb-2024",
+        offset: const Offset(5, 400),
+        fontSize: 26,
+        fontWeight: FontWeight.w900,
       ),
       TextParam(
         text: "Weight         :",
@@ -250,6 +256,12 @@ class _MyHomePageState extends State<MyHomePage> {
       TextParam(
         text: formatPrice(3),
         offset: const Offset(450, 400),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "North Dagon",
+        offset: const Offset(5, 440),
+        fontSize: 26,
         fontWeight: FontWeight.w900,
       ),
       TextParam(
@@ -283,10 +295,38 @@ class _MyHomePageState extends State<MyHomePage> {
         offset: const Offset(450, 490),
         fontWeight: FontWeight.w900,
       ),
+      TextParam(
+        text: "PAID",
+        offset: const Offset(50, 530),
+        fontSize: 26,
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "Grand Total   :",
+        fontSize: 26,
+        offset: const Offset(180, 530),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: formatPrice(190000),
+        fontSize: 26,
+        offset: const Offset(450, 530),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "",
+        offset: const Offset(0, 570),
+        fontWeight: FontWeight.w900,
+      ),
+      TextParam(
+        text: "Remark    : ",
+        offset: const Offset(5, 590),
+        fontWeight: FontWeight.w900,
+      ),
     ];
     Uint8List data = await generateData(textParams);
 
-    List<LineText> buffer = await parseData(data);
+    List<LineText> buffer = parseData(data);
 
     Map<String, dynamic> config = {};
     config['width'] = 72;

@@ -38,7 +38,7 @@ Future<void> connectDevice(BluetoothDevice? device) async {
   await bluetoothPrint.connect(device!);
 }
 
-Future<List<LineText>> parseData(Uint8List generatedData) async {
+List<LineText> parseData(Uint8List generatedData) {
   List<LineText> list = [];
   ByteData data = ByteData.view(generatedData.buffer);
   List<int> imageBytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
