@@ -46,7 +46,5 @@ Future<List<LineText>> parseData(Uint8List generatedData) async {
 
   list.add(LineText(type: LineText.TYPE_IMAGE, width: 575, x:0, y:10, content: base64Image,));
   list.add(LineText(type: LineText.TYPE_BARCODE, content: '123456789', size: 10, x:160, y:20, align: LineText.ALIGN_CENTER, linefeed: 1));
-  // list.add(LineText(type: LineText.TYPE_TEXT, x:10, y:40, content: 'Continue Print Continue Print'));
-  // list.add(LineText(type: LineText.TYPE_QRCODE, x:10, y:70, content: 'qrcode i\n'));
   return list;
 }

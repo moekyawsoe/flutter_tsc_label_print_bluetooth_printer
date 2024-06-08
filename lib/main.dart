@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bluetooth_print/bluetooth_print.dart';
 import 'package:bluetooth_print/bluetooth_print_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:label_print_bluetooth_myanmar/printer.dart';
 import 'package:label_print_bluetooth_myanmar/text_utils.dart';
@@ -172,11 +173,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   printBill() async {
     String printData = """
-    From    :   Shwe Online Shop
-                09253268310, 09123456789
+    From    :   Mee Online Shop
+                09123456789, 09123456789
     ------------------------------------
     To      :   မောင်မောင်ကျော်ကျော်မြင့် (မဟာမိုဘိုင်း)
-                09253653120, 09464521544
+                09123456789, 09123456789
                 အမှတ် (၁၀), ကမ်းနားလမ်း
                 ရန်ကုန်တိုင်းဒေသကြီး
     -------------------------------------
@@ -198,12 +199,12 @@ class _MyHomePageState extends State<MyHomePage> {
         fontWeight: FontWeight.w900,
       ),
       TextParam(
-        text: "Shwe Online Shop",
+        text: "Mee Online Shop",
         offset: const Offset(155, 130),
         fontWeight: FontWeight.w900,
       ),
       TextParam(
-        text: "09253268310, 09123456789",
+        text: "09123456789, 09123456789",
         offset: const Offset(155, 160),
         fontWeight: FontWeight.w900,
       ),
@@ -223,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
         fontWeight: FontWeight.w600,
       ),
       TextParam(
-        text: "09253268310, 09123456789",
+        text: "09123456789, 09123456789",
         offset: const Offset(155, 260),
         fontWeight: FontWeight.w900,
       ),
@@ -294,7 +295,9 @@ class _MyHomePageState extends State<MyHomePage> {
     try{
       await bluetoothPrint.printLabel(config, buffer);
     }catch(er){
-      print(er);
+      if (kDebugMode) {
+        print(er);
+      }
     }
 
     //optional preview
